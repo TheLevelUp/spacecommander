@@ -13,6 +13,8 @@ source "$DIR"/lib/common-lib.sh
 # Don't do anything unless a .clang-format file exists
 [ -e ".clang-format" ] || exit 0
 
+# Compare against master: objc_files=$(objc_files_to_format $(git rev-parse origin/master))
+
 objc_files=$(objc_files_to_format "$1")
 [ -z "$objc_files" ] && exit 0
 
