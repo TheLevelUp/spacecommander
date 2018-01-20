@@ -1,10 +1,7 @@
 echo ''
-echo '## Setting Up OCLint ##'
+echo '## OCLint ##'
 echo '#######################'
-brew tap oclint/formulae
-brew uninstall --force oclint #> /dev/null 2>&1
-brew install oclint #> /dev/null 2>&1
-oclint --version
+./Pods/SpaceCommander/oclint --version
 
 if [[ (-z $SKIP_SPACECOMMANDER) || "$SKIP_SPACECOMMANDER" != "YES" ]]; then
 	echo ''
