@@ -33,7 +33,7 @@ def oclint_analyze(workspace, scheme, file_filter_argument)
 		" -workspace \"#{workspace}\" -scheme \"#{scheme}\" -configuration 'Debug' -sdk iphoneos clean build" + 
 		" | xcpretty -t --report json-compilation-database --output compile_commands.json")
 
-	system_raise_failure("oclint -list-enabled-rules -report-type=text #{file_filter_argument}")
+	system_raise_failure("./Pods/SpaceCommander/oclint -list-enabled-rules -report-type=text #{file_filter_argument}")
 end
 
 def check_space_commander
