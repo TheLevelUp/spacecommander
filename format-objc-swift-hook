@@ -40,7 +40,7 @@ function format_swift() {
 
 		if [[ "${filename##*.}" == "swift" ]]; then
 			RESULT=""
-			if [[ "$filename" == *"/UnitTests/"* ]]; then
+			if [[ "$filename" == *"/Unit-Tests/"* ]]; then
 				RESULT=$($SWIFTLINT lint --quiet --path $filename --config .swiftlint-unit-tests.yml)
 			else 
 				RESULT=$($SWIFTLINT lint --quiet --path $filename --config .swiftlint.yml)
