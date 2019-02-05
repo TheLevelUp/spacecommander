@@ -12,8 +12,6 @@ export CDPATH=""
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "$DIR"/lib/common-lib.sh
 
-objc_files=$(objc_files_to_format $(git rev-parse origin/master))
-
 SWIFT_LINT_PASSED="true"
 OBJC_LINT_PASSED="true"
 success=0
@@ -79,7 +77,16 @@ function format_swift() {
 	return $success
 }
 
+function cached_objc_files_to_format() {
+	directories_to_check
+	files=$(git diff --name-only --cached --diff-filter=ACMR -- $locations_to_diff ':!*-Swift.h' | grep -e '\.m$' -e '\.mm$' -e '\.h$' -e '\.hh$')
+
+	directories_to_ignore
+	echo "$files" | grep -v 'Pods/' | grep -v 'Carthage/' >&1
+}
+
 function format_objc() {
+  objc_files=$(cached_objc_files_to_format)
   for file in $objc_files; do
     difference=$("$DIR"/format-objc-file-dry-run.sh "$file" | diff "$file" - | wc -l)
 	
